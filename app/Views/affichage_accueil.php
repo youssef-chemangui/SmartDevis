@@ -1,5 +1,15 @@
 
+  <!-- ═══ MENU INTRA-PAGE (ANCRES) ════════════════════════════ -->
+  <nav class="nav-scroll">
+    <a href="#services" class="nav-item">Services</a>
+    <a href="#portfolio" class="nav-item">Réalisations</a>
+    <a href="#missions" class="nav-item">Missions</a>
+    <a href="#contact" class="nav-item">Contact</a>
+    <a href="#about" class="nav-item">À propos</a>
+  </nav>
 
+  <a href="#contact" class="btn-contact-header">Entrer en contact</a>
+</header>
 <!-- ═══ HERO ═════════════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-tag">Création de sites Internet — Brest</div>

@@ -1,0 +1,116 @@
+/* ═══ STYLES GLOBAUX POUR LES FORMULAIRES ═════════════════════════════════ */
+
+::selection {
+    color: #fff;
+    background: #9FBE5A;
+}
+
+/* ═══ FORMULAIRE DE CONTACT STYLISÉ ═════════════════════════════════ */
+.form__contact {
+    max-width: 600px;
+    width: 100%;
+    border-left: 30px solid white;
+    border-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pg0KPHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSI2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB2aWV3Qm94PSIwIDAgNiA2Ig0KICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICTXYXRWZXJZAGTZSZF3JEVDVGU+CiAgICAgIDxyZWN0IHdpZHRoPSI2IiBoZWlnaHQ9IjYiIGZpbGw9IiM5ZmJlNWEiLz4KICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKING=") 5% 100% repeat;
+    border-image-width: 0 0 0 30px;
+}
+
+fieldset {
+    padding: 30px 30px 40px 80px;
+    background: #fff linear-gradient(rgba(0, 0, 0, .1) 1px, transparent 0) 0 20px / 100% 40px;
+    font: 24px 'Shadows Into Light', cursive;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    position: relative;
+}
+
+.form__contact fieldset p {
+    margin: 0 0 40px;
+    line-height: 40px;
+    color: #333;
+}
+
+.line-input {
+    border: none;
+    border-bottom: 1px dashed #7DB665;
+    background: transparent;
+    outline: none;
+    font: 24px 'Shadows Into Light', cursive;
+    color: #7DB665;
+    width: auto;
+    min-width: 120px;
+    display: inline-block;
+}
+
+.line-input::placeholder {
+    color: #DDD;
+}
+
+textarea.line-input {
+    width: 100%;
+    resize: none;
+    min-height: 100px;
+}
+
+.form__contact button {
+    margin-top: 40px;
+    float: right;
+    border: none;
+    background: transparent;
+    font: 24px 'Shadows Into Light', cursive;
+    color: #E08183;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.form__contact button:hover {
+    color: #d96b6e;
+}
+
+/* ═══ MESSAGES D'ERREUR ═════════════════════════════════ */
+.form__contact .error-message {
+    color: red;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    padding: 15px;
+    background: #ffebee;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* ═══ ANIMATIONS ═════════════════════════════════ */
+@keyframes init {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.form__contact {
+    animation: init 1s forwards;
+}
+
+/* ═══ RESPONSIVE ═════════════════════════════════ */
+@media (max-width: 768px) {
+    fieldset {
+        padding: 20px 20px 30px 60px;
+        font: 18px 'Shadows Into Light', cursive;
+    }
+
+    .form__contact fieldset p {
+        margin: 0 0 30px;
+        line-height: 30px;
+    }
+
+    .line-input {
+        font: 18px 'Shadows Into Light', cursive;
+        min-width: 80px;
+    }
+
+    .form__contact button {
+        font: 18px 'Shadows Into Light', cursive;
+    }
+}

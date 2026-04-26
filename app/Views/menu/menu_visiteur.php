@@ -1,11 +1,16 @@
-  <header>
-    <div class="logo">SIAM <span>Interactive</span></div>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Réalisations</a>
-      <a href="#missions">Missions</a>
-      <a href="#contact">Contact</a>
-      
-    </nav>
-    <a href="#contact" class="btn-contact-header">Entrer en contact</a>
-  </header>
+
+
+<header>
+  <div class="logo">
+    <a href="<?= base_url('index.php') ?>">
+      SIAM <span>Interactive</span>
+    </a>
+  </div>
+
+  <!-- ═══ MENU NAVIGATION PAGES ════════════════════════════════ -->
+  <nav class="nav-main">
+    <a href="<?= base_url('index.php/message/faire_suivre') ?>" class="nav-item">Suivre une demande</a>
+    <a href="<?= base_url('index.php/message/creer') ?>" class="nav-item">Nous contacter</a>
+    <a href="<?= base_url('index.php/compte/creer') ?>" class="nav-item">Nous rejoindre</a>
+  </nav>
+
