@@ -29,9 +29,9 @@ class Db_model extends Model
 
     public function get_code($code)
     {
-        $requete4 = "SELECT * FROM t_message_msg JOIN t_compte_cpt USING(cpt_pseudo) WHERE msg_code='" . $code . "';";
+        $requete4 = "SELECT * FROM t_message_msg LEFT JOIN t_compte_cpt USING(cpt_pseudo) WHERE msg_code='" . $code . "';";
         $resultat4 = $this->db->query($requete4);
-        return $resultat4->getRow();
+        return $resultat4->getResultArray();
     }
 
     public function set_message($saisie)
