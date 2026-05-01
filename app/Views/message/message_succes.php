@@ -7,11 +7,7 @@
   <div class="message-card">
     <div class="confirm-body">
 
-      <div class="confirm-check">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-      </div>
+
 
       <p class="confirm-label">Votre code de suivi</p>
       <div class="code-block"><?= esc($le_code) ?></div>

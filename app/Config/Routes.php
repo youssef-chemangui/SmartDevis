@@ -18,7 +18,15 @@ $routes->get('compte/lister', [Compte::class, 'lister']);
 
 $routes->get('message/suivre', [Message::class, 'suivre']);
 $routes->get('message/suivre/(:segment)', [Message::class, 'suivre']);
+
 $routes->get('message/creer', [Message::class, 'creer']);
 $routes->post('message/creer', [Message::class, 'creer']);
+
 $routes->get('message/faire_suivre', [Message::class, 'faire_suivre']);
 $routes->post('message/faire_suivre', [Message::class, 'faire_suivre']);
+
+$routes->get('compte/creer', [Compte::class, 'creer']);
+$routes->post('compte/creer', [Compte::class, 'creer']);
+
+$routes->get('compte/connecter', [Compte::class, 'connecter']);
+$routes->post('compte/connecter', [Compte::class, 'connecter']);

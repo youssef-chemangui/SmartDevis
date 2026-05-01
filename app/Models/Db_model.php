@@ -46,4 +46,120 @@ class Db_model extends Model
         return $code;
     }
 
+    public function get_membre()
+    {
+        $query = $this->db->query("SELECT COUNT(*) as total FROM t_compte_cpt;");
+        return $query->getRow();
+    }
+
+    public function set_compte($saisie)
+    {
+        $salt = "OnRajouteDuSelPourAllongerleMDP123!!45678__Test";
+        $data = [
+            'cpt_pseudo' => $saisie['pseudo'],
+            'cpt_mdp' => hash('sha256', $salt . $saisie['mdp']),
+            'cpt_statut' => 'A'
+        ];
+        return $this->db->table('t_compte_cpt')->insert($data);
+    }
+
+    public function set_profil($saisie)
+    {
+        $data = [
+            'pfl_nom' => $saisie['nom'],
+            'pfl_prenom' => $saisie['prenom'],
+            'pfl_adresse' => $saisie['adresse'],
+            'pfl_telephone' => $saisie['telephone'],
+            'pfl_entreprise' => $saisie['entreprise'] ?? null,
+            'pfl_role' => 'M',
+            'cpt_pseudo' => $saisie['pseudo']
+        ];
+
+        return $this->db->table('t_profil_pfl')->insert($data);
+    }
+
+    public function connect_compte($u, $p)
+    {
+        $u = addslashes($u);  
+        $sql = "SELECT  cpt_pseudo, cpt_mdp
+                FROM t_compte_cpt
+                WHERE cpt_pseudo = '".$u."'";
+
+        $query = $this->db->query($sql);
+
+        if ($query->getNumRows() == 0) {
+            return false;
+        }
+
+        $user = $query->getRow();
+        $stored = $user->cpt_mdp;
+
+        $salt = "OnRajouteDuSelPourAllongerleMDP123!!45678__Test";
+        $sha256 = hash('sha256', $salt . $p);
+        $md5 = md5($p);
+
+        if ($stored === $sha256) {
+            return $user;
+        }
+        if ($stored === $md5) {
+
+            $new_hash = $sha256;
+
+            $update_sql = "UPDATE t_compte_cpt
+                        SET cpt_mdp = '".$new_hash."'
+                        WHERE cpt_pseudo = '".$u."';";
+            $this->db->query($update_sql);
+
+            return $user;
+        }
+        return false;
+    }
+
+
+
+    public function get_profil($u)
+    {
+        $sql = "SELECT *
+                FROM t_profil_pfl
+                JOIN t_compte_cpt USING(cpt_pseudo)
+                WHERE cpt_pseudo = '".$u."';";
+
+        $query = $this->db->query($sql);
+
+        if ($query->getNumRows() > 0) {
+            return $query->getRowArray(); 
+        }
+
+        return false;
+    }
+
+    public function get_id_by_pseudo($pseudo)
+    {
+        $sql = "SELECT cpt_pseudo FROM t_compte_cpt WHERE cpt_pseudo = ?";
+        $query = $this->db->query($sql, [$pseudo]);
+        return $query->getRowArray();
+    }
+    
+    public function get_role_by_pseudo($pseudo)
+    {
+        $sql = "SELECT *
+                FROM t_profil_pfl 
+                JOIN t_compte_cpt USING (cpt_pseudo)
+                WHERE cpt_pseudo = '".$pseudo."'";
+        $query = $this->db->query($sql);
+        return $query->getRowArray();
+    }
+    public function get_profil_by_pseudo($pseudo)
+    {
+        $sql = "SELECT *
+                FROM t_compte_cpt 
+                LEFT JOIN t_profil_pfl USING (cpt_pseudo)
+                WHERE cpt_pseudo = '".$pseudo."'";
+
+        $query = $this->db->query($sql);
+        return $query->getRowArray();
+    }
+
+
+
 }
