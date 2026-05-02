@@ -160,6 +160,20 @@ class Db_model extends Model
         return $query->getRowArray();
     }
 
+    public function get_all_profil()
+    {
+        $resultat = $this->db->query("SELECT * FROM t_profil_pfl JOIN t_compte_cpt USING (cpt_pseudo);");
+        return $resultat->getResultArray();
+    }
+
+        public function get_profils_num()
+    {
+            $requete2 = "SELECT COUNT(*) AS total_profil FROM t_profil_pfl;";
+                        
+            $resultat2 = $this->db->query($requete2);
+            return $resultat2->getRow();
+    }
+
 
 
 }

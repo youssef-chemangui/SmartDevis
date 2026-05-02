@@ -8,23 +8,59 @@ class Compte extends BaseController
  {
  //...
  }
- public function accueil()
- {
-    return view('menu/menu_visiteur')
-    . view('templates/haut')
-    . view('connexion/compte_accueil')
-    . view('templates/bas');
- }
- public function lister()
- {
-    $model = model(Db_model::class);
-    $data['titre']="Liste de tous les comptes";
-    $data['logins'] = $model->get_all_compte();
-    return view('templates/haut', $data)
-    . view('menu/menu_visiteur')
-    . view('affichage_comptes')
-    . view('templates/bas');
- }
+
+     public function lister()
+    {
+        $model = model(Db_model::class);
+        $data['titre']="Liste de tous les profils";
+        $data['logins'] = $model->get_all_profil();
+        $data['membre'] = $model->get_membre();
+        $data['profil_num'] = $model->get_profils_num();
+
+        
+        
+        return view('menu/menu_administrateur')
+        . view('templates/haut2', $data)
+        . view('affichage_profil')
+        . view('templates/bas2');
+    }
+
+    public function accueil()
+        {
+            $session = session();
+
+            if (! $session->has('user')) {
+                return redirect()->to('/connexion');
+            }
+
+            $username = $session->get('user');
+            $model = model(Db_model::class);
+
+            $role = $model->get_role_by_pseudo($username);
+
+            $pseudo = $session->get('user');
+        
+            $model = model(Db_model::class);
+        
+            $user = $model->get_id_by_pseudo($pseudo);
+            $id = $user['cpt_pseudo'];
+            
+        
+            $role = $model->get_role_by_pseudo($pseudo);
+
+            if ($role && $role['pfl_role'] === 'A') {
+                $menu = 'menu_administrateur';
+            } else {
+                $menu = 'menu_membre';
+            }
+            
+            return view('templates/haut2')
+                . view("menu/$menu")
+                . view('connexion/compte_accueil')
+                . view('templates/bas2');
+        }
+
+
     public function creer()
     {
         // L’utilisateur a validé le formulaire en cliquant sur le bouton
@@ -143,6 +179,52 @@ class Compte extends BaseController
                     . view('menu/menu_visiteur')
                     . view('connexion/compte_connecter', ['error' => 'Identifiant ou mot de passe incorrect'])
                     . view('templates/bas');
+            }
+
+
+
+            public function deconnecter()
+            {
+                $session=session();
+                $session->destroy();
+                return view('templates/haut', ['titre' => 'Se connecter'])
+                . view('menu/menu_visiteur')
+                . view('connexion/compte_connecter')
+                . view('templates/bas');
+            }
+
+            public function afficher_profil()
+            {
+                $session = session();
+
+                if (! $session->has('user')) {
+                    return redirect()->to('/connexion');
+                }
+
+                $pseudo = $session->get('user');
+                $model = model(Db_model::class);
+
+                $role = $model->get_role_by_pseudo($pseudo);
+                if ($role && $role['pfl_role'] === 'A') {
+                    $menu = 'menu_administrateur';
+                } else {
+                    $menu = 'menu_membre';
+                }
+
+                $profil = $model->get_profil_by_pseudo($pseudo);
+
+                if (!$profil) {
+                    $data['profil'] = null;
+                    $data['le_message'] = "Aucun profil trouvé pour cet utilisateur.";
+                } else {
+                    $data['profil'] = $profil;
+                    $data['le_message'] = "Affichage des données du profil :";
+                }
+
+                return view('templates/haut2')
+                    . view("menu/$menu")
+                    . view('connexion/compte_profil', $data)
+                    . view('templates/bas2');
             }
 
 }

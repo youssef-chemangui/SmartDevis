@@ -487,6 +487,110 @@
       transform: none;
     }
 
+    /* ========== FORMULAIRE CRÉATION DE COMPTE ========== */
+form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-family: 'Archivo', sans-serif;
+}
+
+form input[type="input"],
+form input[type="password"],
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"] {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Archivo', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #c7a43e;
+    box-shadow: 0 0 0 3px rgba(199,164,62,0.2);
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    margin-top: -0.25rem;
+}
+
+.flash-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #d9534f;
+    font-family: 'Archivo', sans-serif;
+}
+
+input[type="submit"] {
+    background: #c7a43e;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 40px;
+    cursor: pointer;
+    font-family: 'Archivo', sans-serif;
+    transition: background 0.2s, transform 0.1s;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+input[type="submit"]:hover {
+    background: #a88830;
+}
+
+input[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Structure des champs */
+form div:has(input),
+form .field-group {
+    margin-bottom: 0.5rem;
+}
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+    form {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+/* Titre du formulaire */
+form h2,
+h2:first-of-type {
+    text-align: center;
+    font-family: 'DM Serif Display', serif;
+    color: #2c3e2f;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
     /* ─── Responsive ─────────────────────────────────────── */
     @media (max-width: 768px) {
       nav { display: none; }

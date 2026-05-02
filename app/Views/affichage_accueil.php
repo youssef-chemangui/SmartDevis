@@ -5,10 +5,7 @@
     <a href="#portfolio" class="nav-item">Réalisations</a>
     <a href="#missions" class="nav-item">Missions</a>
     <a href="#contact" class="nav-item">Contact</a>
-    <a href="#about" class="nav-item">À propos</a>
   </nav>
-
-  <a href="#contact" class="btn-contact-header">Entrer en contact</a>
 </header>
 <!-- ═══ HERO ═════════════════════════════════════════════ -->
 <section class="hero">

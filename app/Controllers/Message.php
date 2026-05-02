@@ -126,6 +126,54 @@ class Message extends BaseController
             . view('templates/bas');
     }
 
+    public function afficher()
+    {
+        $session = session();
+    
+        if (! $session->has('user')) {
+            return redirect()->to('/connexion');
+        }
+        $pseudo = $session->get('user');
+        $model = model(Db_model::class);
+    
+        $data['titre'] = 'les demandes';
+        $data['news'] = $model->get_all_msg();
+        $role = $model->get_role_by_pseudo($pseudo);
+        $role = $model->get_role_by_pseudo($pseudo);
+        if ($role && $role['pfl_role'] === 'A') {
+            $menu = 'menu_administrateur';
+        } else {
+            $menu = 'menu_membre';
+        }
+    
+        return  view('templates/haut2', $data)
+            . view($menu)
+            . view('affichage_msg')
+            . view('templates/bas2');
+    }
+
+    public function repondre($msg_id)
+    {
+        $session = session();
+        if (! $session->has('user')) {
+            return redirect()->to('/connexion');
+        }
+
+        $pseudo = $session->get('user');
+        $model = model(Db_model::class);
+
+        $user = $model->get_id_by_pseudo($pseudo);
+        $cpt_id = $user['cpt_id'];
+
+        $response = $this->request->getPost('msg_response');
+
+        $model = model(Db_model::class);
+        $model->update_message($msg_id, $response, $cpt_id);
+
+
+        return redirect()->to('/message/afficher');
+    }
+
 
     
 

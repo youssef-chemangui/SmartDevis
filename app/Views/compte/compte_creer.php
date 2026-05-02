@@ -1,214 +1,128 @@
 <style>
-    /* Style général */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-/* Conteneur principal */
-form {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    width: 100%;
-    max-width: 450px;
-    transition: transform 0.3s ease;
-}
-
-form:hover {
-    transform: translateY(-5px);
-}
-
-/* Titre */
-h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
-    font-weight: 600;
-    position: relative;
-}
-
-h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 2px;
-}
-
-/* Messages d'erreur flash */
-h2 + :is(div, p) {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    border-left: 4px solid #f5c6cb;
-    font-size: 14px;
-}
-
-/* Labels */
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-/* Champs de saisie */
-input[type="input"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 5px;
-    border: 2px solid #e1e5e9;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    font-family: inherit;
-}
-
-input[type="input"]:focus,
-input[type="password"]:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-/* Messages d'erreur de validation */
-.error-message,
-:is(div, p) + :is(div, p) {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: -3px;
-    margin-bottom: 15px;
-    display: block;
-}
-
-/* Bouton de soumission */
-input[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    font-family: inherit;
-}
-
-input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-}
-
-input[type="submit"]:active {
-    transform: translateY(0);
-}
-
-/* Style pour le message d'erreur flash spécifique */
-<?= session()->getFlashdata('error') ? "div:first-child" : "" ?> {
-    animation: shake 0.5s ease;
-}
-
-/* Animation pour les erreurs */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-/* Responsive design */
-@media (max-width: 480px) {
-    form {
-        padding: 25px;
-    }
-    
-    h2 {
-        font-size: 24px;
-    }
-    
-    input[type="input"],
-    input[type="password"],
-    input[type="submit"] {
-        padding: 10px 12px;
-    }
-}
-
-/* Style pour les champs avec erreur */
-input:invalid:not(:placeholder-shown) {
-    border-color: #e74c3c;
-}
-
-/* Ajout d'un petit effet de placeholder */
-input::placeholder {
-    color: #bbb;
-    font-size: 12px;
-}
-
-/* Style pour le champ pseudo spécifiquement */
-label[for="pseudo"] {
-    margin-top: 5px;
-}
+  main {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  /* Compacter le wrapper pour éviter le scroll */
+  .form-card-wrapper {
+    padding: 1.2rem 1rem 2rem !important;
+    min-height: unset !important;
+  }
+  /* Réduire les espacements internes de la carte */
+  .form-card__header {
+    padding: 1.2rem 2rem 1rem !important;
+  }
+  .form-card__title {
+    font-size: 22px !important;
+    margin-bottom: .2rem !important;
+  }
+  .form-card__lead {
+    font-size: 13px !important;
+  }
+  .form-card__body {
+    padding: 1rem 2rem 1.5rem !important;
+  }
+  .form-group {
+    margin-bottom: .75rem !important;
+  }
+  .form-group label {
+    margin-bottom: .2rem !important;
+  }
+  .form-group input {
+    padding: .3rem 0 !important;
+  }
 </style>
-<?= session()->getFlashdata('error') ?>
-<h2><?php echo $titre; ?></h2>
-<?php
-//...
-// Création d’un formulaire qui pointe vers l’URL de base + /compte/creer
-echo form_open_multipart('/compte/creer'); ?>
-<?= csrf_field() ?>
 
-<label for="pseudo">Pseudo : </label>
-<input type="input" name="pseudo">
-<?= validation_show_error('pseudo') ?>
+<div class="form-card-wrapper" style="width:100%; box-sizing:border-box;">
+  <div class="form-card" style="max-width:700px; width:100%;">
 
-<label for="prenom">Prénom : </label>
-<input type="input" name="prenom">
-<?= validation_show_error('prenom') ?>
+    <div class="form-card__header">
+      <p class="form-card__tag">Inscription</p>
+      <h2 class="form-card__title">Créer un compte</h2>
+      <p class="form-card__lead">Remplissez le formulaire pour rejoindre la plateforme.</p>
+    </div>
 
-<label for="nom">Nom : </label>
-<input type="input" name="nom">
-<?= validation_show_error('nom') ?>
+    <div class="form-card__body">
 
-<label for="adresse">Adresse : </label>
-<input type="input" name="adresse">
-<?= validation_show_error('adresse') ?>
+      <?php if (session()->getFlashdata('error')) : ?>
+        <div class="form-error">
+          <?= session()->getFlashdata('error') ?>
+        </div>
+      <?php endif; ?>
 
-<label for="telephone">Téléphone : </label>
-<input type="input" name="telephone">
-<?= validation_show_error('telephone') ?>
+      <?= form_open_multipart('/compte/creer') ?>
+      <?= csrf_field() ?>
 
-<label for="entreprise">Entreprise : </label>
-<input type="input" name="entreprise">
-<?= validation_show_error('entreprise') ?>
+        <!-- Ligne 1 : Pseudo + Prénom -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 2rem;">
+          <div class="form-group">
+            <label for="pseudo">Pseudo</label>
+            <input type="text" id="pseudo" name="pseudo" value="<?= set_value('pseudo') ?>" placeholder="Votre pseudo">
+            <div class="error-message"><?= validation_show_error('pseudo') ?></div>
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" value="<?= set_value('prenom') ?>" placeholder="Votre prénom">
+            <div class="error-message"><?= validation_show_error('prenom') ?></div>
+          </div>
+        </div>
 
-<label for="mdp">Mot de passe : </label>
-<input type="password" name="mdp">
-<?= validation_show_error('mdp') ?>
+        <!-- Ligne 2 : Nom + Adresse -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 2rem;">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" value="<?= set_value('nom') ?>" placeholder="Votre nom">
+            <div class="error-message"><?= validation_show_error('nom') ?></div>
+          </div>
+          <div class="form-group">
+            <label for="adresse">Adresse</label>
+            <input type="text" id="adresse" name="adresse" value="<?= set_value('adresse') ?>" placeholder="Votre adresse">
+            <div class="error-message"><?= validation_show_error('adresse') ?></div>
+          </div>
+        </div>
 
-<input type="submit" name="submit" value="Créer un nouveau compte">
+        <!-- Ligne 3 : Téléphone + Entreprise -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 2rem;">
+          <div class="form-group">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" value="<?= set_value('telephone') ?>" placeholder="Votre téléphone">
+            <div class="error-message"><?= validation_show_error('telephone') ?></div>
+          </div>
+          <div class="form-group">
+            <label for="entreprise">Entreprise <span style="font-size:10px;color:#bbb;">(optionnel)</span></label>
+            <input type="text" id="entreprise" name="entreprise" value="<?= set_value('entreprise') ?>" placeholder="Votre entreprise">
+            <div class="error-message"><?= validation_show_error('entreprise') ?></div>
+          </div>
+        </div>
 
-<?= form_close(); ?>
+        <!-- Ligne 4 : Mot de passe -->
+        <div class="form-group">
+          <label for="mdp">Mot de passe</label>
+          <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe">
+          <div class="error-message"><?= validation_show_error('mdp') ?></div>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem; margin-top:.5rem;">
+          <button type="submit" class="btn-submit">
+            Créer mon compte
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+          <p style="margin:0; font-size:13px; color:#aaa;">
+            Déjà un compte ?
+            <a href="<?= base_url('index.php/compte/connecter') ?>" style="color:#1a1a1a; text-decoration:none;">Se connecter →</a>
+          </p>
+        </div>
+
+      <?= form_close() ?>
+
+    </div>
+  </div>
+</div>

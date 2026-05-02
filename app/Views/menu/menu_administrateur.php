@@ -17,13 +17,7 @@
         <li class="nav-item mx-2">
             <a class="nav-link text-white" href="<?= base_url('index.php/reservation/lister_rsv') ?>">
                 <i class="fas fa-fw fa-calendar-alt me-1" aria-hidden="true"></i>
-                Mes réservations
-            </a>
-        </li>
-        <li class="nav-item mx-2">
-            <a class="nav-link text-white" href="<?= base_url('index.php/reservation/lister_res') ?>">
-                <i class="fas fa-fw fa-calendar-alt me-1" aria-hidden="true"></i>
-                Les ressources
+                Voir les devis
             </a>
         </li>
         <li class="nav-item mx-2">
