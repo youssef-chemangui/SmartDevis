@@ -15,7 +15,7 @@
             </a>
         </li>
         <li class="nav-item mx-2">
-            <a class="nav-link text-white" href="<?= base_url('index.php/reservation/lister_rsv') ?>">
+            <a class="nav-link text-white" href="<?= base_url('index.php/devis/lister_dev') ?>">
                 <i class="fas fa-fw fa-calendar-alt me-1" aria-hidden="true"></i>
                 Voir les devis
             </a>

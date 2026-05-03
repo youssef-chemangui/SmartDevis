@@ -11,6 +11,7 @@ use CodeIgniter\Router\RouteCollection;
 use App\Controllers\Accueil;
 use App\Controllers\Compte;
 use App\Controllers\Message;
+use App\Controllers\Devis;
 
 $routes->get('/', [Accueil::class, 'afficher']);
 $routes->get('compte/lister', [Compte::class, 'lister']);
@@ -24,6 +25,8 @@ $routes->post('message/creer', [Message::class, 'creer']);
 
 $routes->get('message/faire_suivre', [Message::class, 'faire_suivre']);
 $routes->post('message/faire_suivre', [Message::class, 'faire_suivre']);
+$routes->get('message/afficher', [Message::class, 'afficher']);
+$routes->post('message/repondre/(:num)', [Message::class, 'repondre']);
 
 $routes->get('compte/creer', [Compte::class, 'creer']);
 $routes->post('compte/creer', [Compte::class, 'creer']);
@@ -34,3 +37,9 @@ $routes->get('compte/afficher_profil', [Compte::class, 'afficher_profil']);
 $routes->get('compte/deconnecter', [Compte::class, 'deconnecter']);
 $routes->get('compte/connecter', [Compte::class, 'connecter']);
 $routes->post('compte/connecter', [Compte::class, 'connecter']);
+
+$routes->get('devis/lister_dev', [Devis::class, 'lister_dev']);
+
+$routes->get('devis/lister_dev', [Devis::class, 'lister_dev']);
+$routes->post('devis/creer', [Devis::class, 'creer']);
+$routes->get('devis/valider/(:num)', [Devis::class, 'valider/$1']);

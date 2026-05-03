@@ -9,7 +9,7 @@
   <nav class="nav-main">
     <a href="<?= base_url('index.php/compte/accueil') ?>">Accueil</a>
     <a href="<?= base_url('index.php/compte/afficher_profil') ?>">Mon profil</a>
-    <a href="<?= base_url('') ?>">Lister les devis</a>
+    <a href="<?= base_url('index.php/devis/lister_dev') ?>">Lister les devis</a>
     <a href="<?= base_url('index.php/compte/deconnecter') ?>">Déconnexion</a>
   </nav>
 </header>

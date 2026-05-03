@@ -175,5 +175,52 @@ class Db_model extends Model
     }
 
 
+    public function update_message($msg_id, $response, $cpt_pseudo)
+    {
+        $response = addslashes(htmlspecialchars($response));
+
+        $sql = "UPDATE t_message_msg
+                SET msg_response = '".$response."', 
+                    cpt_pseudo = '".$cpt_pseudo."'
+                WHERE msg_id = ".$msg_id;
+
+        return $this->db->query($sql);
+    }
+
+    public function get_all_msg()
+    {
+        $resultat_message = $this->db->query("SELECT * FROM t_message_msg LEFT JOIN t_compte_cpt USING(cpt_pseudo) ORDER BY 
+        CASE 
+        WHEN msg_response = 'Demande en cours de traitement' THEN 0 
+        ELSE 1 
+    END,
+    msg_date DESC;");
+        return $resultat_message->getResultArray();
+    }
+
+    public function get_all_dev()
+    {
+        return $this->db->table('t_devis_dev')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function get_dev_by_user($pseudo)
+    {
+        return $this->db->table('t_devis_dev')
+            ->where('cpt_pseudo', $pseudo)
+            ->get()
+            ->getResultArray();
+    }
+
+    public function get_parametre($cle)
+    {
+        return $this->db->table('t_parametre_prm')
+            ->where('prm_cle', $cle)
+            ->get()
+            ->getRowArray();
+    }
+
+
 
 }

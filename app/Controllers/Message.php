@@ -147,7 +147,7 @@ class Message extends BaseController
         }
     
         return  view('templates/haut2', $data)
-            . view($menu)
+            . view('menu/' . $menu)
             . view('affichage_msg')
             . view('templates/bas2');
     }
@@ -163,12 +163,12 @@ class Message extends BaseController
         $model = model(Db_model::class);
 
         $user = $model->get_id_by_pseudo($pseudo);
-        $cpt_id = $user['cpt_id'];
+        $cpt_pseudo = $user['cpt_pseudo'];
 
         $response = $this->request->getPost('msg_response');
 
         $model = model(Db_model::class);
-        $model->update_message($msg_id, $response, $cpt_id);
+        $model->update_message($msg_id, $response, $cpt_pseudo);
 
 
         return redirect()->to('/message/afficher');
