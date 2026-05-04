@@ -12,34 +12,34 @@ use App\Controllers\Accueil;
 use App\Controllers\Compte;
 use App\Controllers\Message;
 use App\Controllers\Devis;
+use App\Controllers\Chat;
 
 $routes->get('/', [Accueil::class, 'afficher']);
+
+// compte
 $routes->get('compte/lister', [Compte::class, 'lister']);
-
-
-$routes->get('message/suivre', [Message::class, 'suivre']);
-$routes->get('message/suivre/(:segment)', [Message::class, 'suivre']);
-
-$routes->get('message/creer', [Message::class, 'creer']);
-$routes->post('message/creer', [Message::class, 'creer']);
-
-$routes->get('message/faire_suivre', [Message::class, 'faire_suivre']);
-$routes->post('message/faire_suivre', [Message::class, 'faire_suivre']);
-$routes->get('message/afficher', [Message::class, 'afficher']);
-$routes->post('message/repondre/(:num)', [Message::class, 'repondre']);
-
 $routes->get('compte/creer', [Compte::class, 'creer']);
 $routes->post('compte/creer', [Compte::class, 'creer']);
-
-
 $routes->get('compte/accueil', [Compte::class, 'accueil']);
 $routes->get('compte/afficher_profil', [Compte::class, 'afficher_profil']);
 $routes->get('compte/deconnecter', [Compte::class, 'deconnecter']);
 $routes->get('compte/connecter', [Compte::class, 'connecter']);
 $routes->post('compte/connecter', [Compte::class, 'connecter']);
+$routes->get('compte/toggle/(:segment)', [Compte::class, 'toggle']);
+$routes->get('compte/delete/(:segment)', [Compte::class, 'delete']);
 
-$routes->get('devis/lister_dev', [Devis::class, 'lister_dev']);
+// message (existant)
+$routes->get('message/suivre', [Message::class, 'suivre']);
+$routes->get('message/suivre/(:segment)', [Message::class, 'suivre']);
+$routes->get('message/creer', [Message::class, 'creer']);
+$routes->post('message/creer', [Message::class, 'creer']);
+$routes->get('message/faire_suivre', [Message::class, 'faire_suivre']);
+$routes->post('message/faire_suivre', [Message::class, 'faire_suivre']);
+$routes->get('message/afficher', [Message::class, 'afficher']);
+$routes->post('message/repondre/(:num)', [Message::class, 'repondre']);
 
+// devis
 $routes->get('devis/lister_dev', [Devis::class, 'lister_dev']);
 $routes->post('devis/creer', [Devis::class, 'creer']);
-$routes->get('devis/valider/(:num)', [Devis::class, 'valider/$1']);
+$routes->get('devis/valider/(:num)', [Devis::class, 'valider']);
+

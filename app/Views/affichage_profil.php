@@ -1,454 +1,403 @@
 <style>
-<style>
-    /* ========== VARIABLES DYNAMIQUES ========== */
-    :root {
-        --primary: #4361ee;
-        --primary-dark: #3a0ca3;
-        --primary-light: #4895ef;
-        --success: #06d6a0;
-        --danger: #ef233c;
-        --warning: #f8961e;
-        --info: #4cc9f0;
-        --dark: #2b2d42;
-        --gray: #6c757d;
-        --light: #f8f9fa;
-        --white: #ffffff;
-        --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
-        --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-        --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-        --shadow-xl: 0 12px 36px rgba(0,0,0,0.15);
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    /* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+}
 
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* En-tête */
+.header {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.header-title h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-title p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Cartes statistiques */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card i {
+    font-size: 3em;
+    color: #667eea;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.stat-card h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-card p {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Conteneur du tableau */
+.table-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+.table-title {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    border-left: 4px solid #667eea;
+    padding-left: 15px;
+}
+
+/* Tableau stylisé */
+.styled-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+.styled-table thead tr {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+.styled-table th {
+    padding: 15px 20px;
+    text-align: left;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.styled-table th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.styled-table th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.styled-table tbody tr {
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: slideInRight 0.4s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.styled-table tbody tr:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table td {
+    padding: 15px 20px;
+    color: #555;
+    font-size: 0.9em;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Badges de statut */
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.status-badge.active {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+.status-badge.inactive {
+    background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+    color: white;
+}
+
+.status-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Badges de rôle */
+.role-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.role-badge.admin {
+    background: linear-gradient(135deg, #FF6B6B 0%, #c92a2a 100%);
+    color: white;
+}
+
+.role-badge.member {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44a08d 100%);
+    color: white;
+}
+
+.role-badge.invite {
+    background: linear-gradient(135deg, #FFE66D 0%, #f7b731 100%);
+    color: #333;
+}
+
+.role-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* État vide */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.empty-state h3 {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.empty-state p {
+    color: #999;
+    font-size: 1em;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
     body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        margin: 0;
-        animation: fadeIn 0.5s ease-out;
+        padding: 20px 10px;
     }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideUp {
-        from {
-            transform: translateY(30px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideInLeft {
-        from {
-            transform: translateX(-30px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes shimmer {
-        0% {
-            background-position: -1000px 0;
-        }
-        100% {
-            background-position: 1000px 0;
-        }
-    }
-
-    /* ========== CONTAINER ========== */
-    .container {
-        width: 95%;
-        max-width: 1400px;
-        margin: auto;
-        padding: 30px 20px;
-        animation: slideUp 0.6s ease-out;
-    }
-
-    /* ========== EN-TÊTE ========== */
+    
     .header {
+        padding: 20px;
+    }
+    
+    .header-title h1 {
+        font-size: 1.5em;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .table-container {
+        padding: 20px;
+    }
+    
+    .styled-table thead {
+        display: none;
+    }
+    
+    .styled-table tbody tr {
+        display: block;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    
+    .styled-table td {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 20px 30px;
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        box-shadow: var(--shadow-lg);
-        animation: slideInLeft 0.5s ease-out;
+        text-align: right;
+        padding: 12px 15px;
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
     }
-
-    .header-title h1 {
-        font-size: 28px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-bottom: 8px;
+    
+    .styled-table td:last-child {
+        border-bottom: none;
     }
-
-    .header-title p {
-        color: var(--gray);
-        font-size: 14px;
-    }
-
-    /* ========== STATS CARDS ========== */
-    .stats-container {
-        display: flex;
-        gap: 25px;
-        margin-bottom: 40px;
-        flex-wrap: wrap;
-    }
-
-    .stat-card {
-        background: linear-gradient(135deg, var(--white) 0%, #f8f9fa 100%);
-        padding: 25px;
-        border-radius: 24px;
-        flex: 1;
-        min-width: 200px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        box-shadow: var(--shadow-md);
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-    }
-
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent 30%, rgba(67, 97, 238, 0.05) 50%, transparent 70%);
-        transform: translateX(-100%);
-        transition: transform 0.6s;
-    }
-
-    .stat-card:hover::before {
-        transform: translateX(100%);
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-xl);
-    }
-
-    .stat-card i {
-        font-size: 48px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    .stat-card div h2 {
-        font-size: 36px;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-bottom: 5px;
-    }
-
-    .stat-card div p {
-        color: var(--gray);
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    /* ========== TABLE CONTAINER ========== */
-    .table-container {
-        background: var(--white);
-        padding: 0;
-        border-radius: 24px;
-        box-shadow: var(--shadow-lg);
-        overflow: hidden;
-        transition: var(--transition);
-    }
-
-    .table-title {
-        padding: 25px 30px 0 30px;
-        font-size: 22px;
-        color: var(--dark);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    /* ========== TABLE STYLES ========== */
-    .styled-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-    .styled-table thead tr {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    }
-
-    .styled-table th {
-        color: var(--white);
-        padding: 18px 15px;
+    
+    .styled-table td::before {
+        content: attr(data-label);
         font-weight: 600;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
         text-align: left;
-        position: relative;
+        color: #667eea;
     }
+}
 
-    .styled-table th:first-child {
-        border-top-left-radius: 20px;
-    }
+/* Effet de chargement progressif pour les lignes du tableau */
+.styled-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.styled-table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.styled-table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.styled-table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.styled-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+.styled-table tbody tr:nth-child(6) { animation-delay: 0.6s; }
+.styled-table tbody tr:nth-child(7) { animation-delay: 0.7s; }
+.styled-table tbody tr:nth-child(8) { animation-delay: 0.8s; }
+.styled-table tbody tr:nth-child(9) { animation-delay: 0.9s; }
+.styled-table tbody tr:nth-child(10) { animation-delay: 1s; }
 
-    .styled-table th:last-child {
-        border-top-right-radius: 20px;
-    }
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
 
-    .styled-table td {
-        padding: 16px 15px;
-        color: var(--dark);
-        font-size: 14px;
-        border-bottom: 1px solid #e9ecef;
-        transition: var(--transition);
-    }
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
 
-    .styled-table tbody tr {
-        transition: var(--transition);
-        animation: slideUp 0.4s ease-out;
-        animation-fill-mode: backwards;
-    }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
 
-    .styled-table tbody tr:hover {
-        background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);
-        transform: scale(1.01);
-        box-shadow: var(--shadow-sm);
-    }
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46a0 100%);
+}
+/* Version minimaliste */
+.btn-action {
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: opacity 0.2s;
+}
 
-    /* Animation delay pour chaque ligne */
-    .styled-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
-    .styled-table tbody tr:nth-child(2) { animation-delay: 0.15s; }
-    .styled-table tbody tr:nth-child(3) { animation-delay: 0.2s; }
-    .styled-table tbody tr:nth-child(4) { animation-delay: 0.25s; }
-    .styled-table tbody tr:nth-child(5) { animation-delay: 0.3s; }
+.btn-enable {
+    background: #28a745;
+    color: white;
+}
 
-    /* ========== BADGES DYNAMIQUES ========== */
-    .status-badge, .role-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 14px;
-        border-radius: 50px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        transition: var(--transition);
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
+.btn-disable {
+    background: #ffc107;
+    color: #333;
+}
 
-    .status-badge::before, .role-badge::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.4s, height 0.4s;
-    }
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
 
-    .status-badge:hover::before, .role-badge:hover::before {
-        width: 100px;
-        height: 100px;
-    }
-
-    .status-badge:hover, .role-badge:hover {
-        transform: translateY(-2px);
-        filter: brightness(1.1);
-    }
-
-    /* Status Badges */
-    .status-badge.active {
-        background: linear-gradient(135deg, #06d6a0 0%, #059669 100%);
-        box-shadow: 0 4px 12px rgba(6, 214, 160, 0.3);
-    }
-
-    .status-badge.inactive {
-        background: linear-gradient(135deg, #ef233c 0%, #991b1b 100%);
-        box-shadow: 0 4px 12px rgba(239, 35, 60, 0.3);
-    }
-
-    /* Role Badges */
-    .role-badge.admin {
-        background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
-        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-    }
-
-    .role-badge.member {
-        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .role-badge.invite {
-        background: linear-gradient(135deg, #6c757d 0%, #4b5563 100%);
-        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-    }
-
-    /* ========== EMPTY STATE ========== */
-    .empty-state {
-        text-align: center;
-        padding: 60px 40px;
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    .empty-state h3 {
-        font-size: 24px;
-        color: var(--dark);
-        margin-bottom: 12px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    .empty-state p {
-        color: var(--gray);
-        font-size: 14px;
-    }
-
-    /* ========== SCROLLBAR PERSONNALISÉE ========== */
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-dark);
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 1024px) {
-        .stats-container {
-            gap: 15px;
-        }
-        
-        .styled-table {
-            font-size: 12px;
-        }
-        
-        .styled-table th,
-        .styled-table td {
-            padding: 12px 10px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .container {
-            width: 98%;
-            padding: 15px;
-        }
-        
-        .stats-container {
-            flex-direction: column;
-        }
-        
-        .stat-card {
-            min-width: auto;
-        }
-        
-        .header {
-            flex-direction: column;
-            text-align: center;
-            gap: 15px;
-        }
-        
-        .table-container {
-            overflow-x: auto;
-        }
-        
-        .styled-table {
-            min-width: 800px;
-        }
-        
-        .status-badge, .role-badge {
-            padding: 4px 10px;
-            font-size: 10px;
-        }
-    }
-
-    /* ========== LOADING STATE ========== */
-    .loading {
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-        background-size: 1000px 100%;
-        animation: shimmer 1.5s infinite;
-    }
-
-    /* ========== TOOLTIPS ========== */
-    [data-tooltip] {
-        position: relative;
-        cursor: pointer;
-    }
-
-    [data-tooltip]:before {
-        content: attr(data-tooltip);
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 5px 10px;
-        background: var(--dark);
-        color: var(--white);
-        font-size: 12px;
-        border-radius: 8px;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: var(--transition);
-        z-index: 1000;
-    }
-
-    [data-tooltip]:hover:before {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-5px);
-    }
+.btn-action:hover {
+    opacity: 0.8;
+}
 </style>
     </style>
 <body>
@@ -500,6 +449,7 @@
                     <th>Email</th>
                     <th>Statut</th>
                     <th>Rôle</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -525,6 +475,22 @@
                                 
                                 <?= $pseudos["pfl_role"] == 'A' ? 'Admin' : ($pseudos["pfl_role"] == 'M' ? 'Membre' : 'Invité') ?>
                             </span>
+                        </td>
+                        <td>
+                            <!-- Activer / Désactiver -->
+                            <a href="<?= base_url('compte/toggle/'.$pseudos["cpt_pseudo"]) ?>" 
+                            class="btn-action <?= $pseudos["cpt_statut"] == 'A' ? 'btn-disable' : 'btn-enable' ?>">
+                            
+                                <?= $pseudos["cpt_statut"] == 'A' ? 'Désactiver' : 'Activer' ?>
+                            </a>
+
+                            <!-- Supprimer -->
+                            <a href="<?= base_url('compte/delete/'.$pseudos["cpt_pseudo"]) ?>" 
+                            class="btn-action btn-delete"
+                            onclick="return confirm('Tu es sûr de vouloir supprimer ce compte ?');">
+                            
+                                Supprimer
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

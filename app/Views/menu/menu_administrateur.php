@@ -32,13 +32,13 @@
                 Gestion des Comptes/Profils
             </a>
         </li>
-
         <li class="nav-item mx-2">
             <a class="nav-link text-white" href="<?= base_url('index.php/message/afficher') ?>">
-                <i class="fas fa-fw fa-user me-1" aria-hidden="true"></i>
+                <i class="fas fa-fw fa-envelope me-1" aria-hidden="true"></i>
                 Contact
             </a>
         </li>
+
         <li class="nav-item mx-2">
             <a class="nav-link text-white" href="<?= base_url('index.php/compte/deconnecter') ?>">
                 <i class="fas fa-fw fa-sign-out-alt me-1" aria-hidden="true"></i>

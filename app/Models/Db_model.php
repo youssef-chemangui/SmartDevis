@@ -200,27 +200,74 @@ class Db_model extends Model
 
     public function get_all_dev()
     {
-        return $this->db->table('t_devis_dev')
-            ->get()
-            ->getResultArray();
+        $sql = "SELECT * FROM t_devis_dev";
+        return $this->db->query($sql)->getResultArray();
     }
 
     public function get_dev_by_user($pseudo)
     {
-        return $this->db->table('t_devis_dev')
-            ->where('cpt_pseudo', $pseudo)
-            ->get()
-            ->getResultArray();
+        $pseudo = addslashes($pseudo);
+
+        $sql = "SELECT * 
+                FROM t_devis_dev
+                WHERE cpt_pseudo = '".$pseudo."'";
+
+        return $this->db->query($sql)->getResultArray();
     }
 
     public function get_parametre($cle)
     {
-        return $this->db->table('t_parametre_prm')
-            ->where('prm_cle', $cle)
-            ->get()
-            ->getRowArray();
+        $cle = addslashes($cle);
+
+        $sql = "SELECT * 
+                FROM t_parametre_prm
+                WHERE prm_cle = '".$cle."'";
+
+        return $this->db->query($sql)->getRowArray();
     }
 
+    public function get_user($pseudo)
+    {
+        $pseudo = addslashes($pseudo);
+
+        $sql = "SELECT * 
+                FROM t_compte_cpt
+                WHERE cpt_pseudo = '".$pseudo."'";
+
+        return $this->db->query($sql)->getRow();
+    }
+
+    public function update_statut($pseudo, $statut)
+    {
+        $pseudo = addslashes($pseudo);
+        $statut = addslashes($statut);
+
+        $sql = "UPDATE t_compte_cpt
+                SET cpt_statut = '".$statut."'
+                WHERE cpt_pseudo = '".$pseudo."'";
+
+        return $this->db->query($sql);
+    }
+
+    public function delete_profil($pseudo)
+    {
+        $pseudo = addslashes($pseudo);
+
+        $sql = "DELETE FROM t_profil_pfl
+                WHERE cpt_pseudo = '".$pseudo."'";
+
+        return $this->db->query($sql);
+    }
+
+    public function delete_compte($pseudo)
+    {
+        $pseudo = addslashes($pseudo);
+
+        $sql = "DELETE FROM t_compte_cpt
+                WHERE cpt_pseudo = '".$pseudo."'";
+
+        return $this->db->query($sql);
+    }
 
 
 }

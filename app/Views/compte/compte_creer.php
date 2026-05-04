@@ -1,40 +1,4 @@
-<style>
-  main {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  /* Compacter le wrapper pour éviter le scroll */
-  .form-card-wrapper {
-    padding: 1.2rem 1rem 2rem !important;
-    min-height: unset !important;
-  }
-  /* Réduire les espacements internes de la carte */
-  .form-card__header {
-    padding: 1.2rem 2rem 1rem !important;
-  }
-  .form-card__title {
-    font-size: 22px !important;
-    margin-bottom: .2rem !important;
-  }
-  .form-card__lead {
-    font-size: 13px !important;
-  }
-  .form-card__body {
-    padding: 1rem 2rem 1.5rem !important;
-  }
-  .form-group {
-    margin-bottom: .75rem !important;
-  }
-  .form-group label {
-    margin-bottom: .2rem !important;
-  }
-  .form-group input {
-    padding: .3rem 0 !important;
-  }
-</style>
+
 
 <div class="form-card-wrapper" style="width:100%; box-sizing:border-box;">
   <div class="form-card" style="max-width:700px; width:100%;">

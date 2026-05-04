@@ -227,4 +227,29 @@ class Compte extends BaseController
                     . view('templates/bas2');
             }
 
+        public function toggle($pseudo)
+        {
+            $model = new \App\Models\Db_model();
+
+            $user = $model->get_user($pseudo);
+
+            if ($user) {
+                $new_statut = ($user->cpt_statut == 'A') ? 'D' : 'A';
+                $model->update_statut($pseudo, $new_statut);
+            }
+
+            return redirect()->to('/compte/lister');
+        }
+
+
+        public function delete($pseudo)
+        {
+            $model = new \App\Models\Db_model();
+
+            $model->delete_profil($pseudo);
+            $model->delete_compte($pseudo);
+
+            return redirect()->to('/compte/lister');
+        }
+
 }

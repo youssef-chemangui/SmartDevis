@@ -56,29 +56,40 @@ class Devis extends BaseController
             return redirect()->to('/connexion');
         }
 
-        $pseudo = $session->get('user');
-        $model = model(\App\Models\Db_model::class);
+        $pseudo = addslashes($session->get('user'));
 
-        $nb_pages = $this->request->getPost('nb_pages');
+        $nb_pages = (int) $this->request->getPost('nb_pages');
         $paiement = $this->request->getPost('paiement_ligne');
 
         // 🔥 calcul
         $duree = $nb_pages; // 1 page = 1 jour
-        $montant = $duree * 300;
+        
 
         if ($paiement === 'oui') {
             $duree += 3;
         }
+        $montant = $duree * 300;
 
-        // 🔥 insertion
-        $model->db->table('t_devis_dev')->insert([
-            'dev_montant_estime' => $montant,
-            'dev_duree_estime' => $nb_pages,
-            'dev_duree_ml' => $duree,
-            'dev_statut' => 'P',
-            'dev_date_creation' => date('Y-m-d'),
-            'cpt_pseudo' => $pseudo
-        ]);
+        $date = date('Y-m-d');
+
+        // 🔥 insertion SQL brute
+        $sql = "INSERT INTO t_devis_dev (
+                    dev_montant_estime,
+                    dev_duree_estime,
+                    dev_statut,
+                    dev_date_creation,
+                    cpt_pseudo
+                ) VALUES (
+                    ".$montant.",
+
+                    ".$duree.",
+                    'P',
+                    '".$date."',
+                    '".$pseudo."'
+                )";
+
+        $model = model(\App\Models\Db_model::class);
+        $model->db->query($sql);
 
         return redirect()->to('/devis/lister_dev');
     }
