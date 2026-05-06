@@ -153,3 +153,4 @@ textarea::placeholder {
 </form>
 
 <hr>
+<?= view("chatbot_widget") ?>
