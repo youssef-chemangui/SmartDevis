@@ -16,7 +16,6 @@
   body { font-family: 'DM Sans', sans-serif; background: var(--c-surface); color: var(--c-ink); padding: 2rem; }
   h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; color: var(--c-ink); letter-spacing: -0.02em; margin-bottom: 0.25rem; }
   h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 1.25rem; color: var(--c-ink); }
-  .table-wrap { background: var(--c-card); border-radius: 12px; border: 0.5px solid var(--c-border); overflow: hidden; margin-bottom: 2.5rem; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead { background: var(--c-surface); }
   th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-muted); border-bottom: 0.5px solid var(--c-border); }
@@ -26,6 +25,9 @@
   .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
   .badge-pending { background: var(--c-pending-bg); color: var(--c-pending); }
   .badge-valid { background: var(--c-accent-light); color: var(--c-accent); }
+  .btn-valider { font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 500; background: var(--c-ink); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 0.15s; }
+  .btn-valider:hover { opacity: 0.75; }
+  .validated-text { font-size: 12px; color: var(--c-accent); font-weight: 500; }
   .amount { font-weight: 500; }
   label { display: block; font-size: 12px; font-weight: 500; color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
   input[type="number"], select {
@@ -34,54 +36,55 @@
     color: var(--c-ink); outline: none; transition: border-color 0.15s; appearance: none;
   }
   input[type="number"]:focus, select:focus { border-color: var(--c-accent-mid); }
-  .btn-submit {
-    width: 100%; padding: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
-    background: var(--c-ink); color: #fff; border: none; border-radius: 7px; cursor: pointer; transition: background 0.15s;
-  }
-  .btn-submit:hover { background: #2d2d44; }
   hr { border: none; border-top: 0.5px solid var(--c-border); margin: 2rem 0; }
-  /* Style global des champs */
-input[type="text"],
-textarea {
-    width: 100%;
-    max-width: 500px;
-    padding: 12px 15px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
 
-/* Effet au focus */
-input[type="text"]:focus,
-textarea:focus {
-    border-color: #4CAF50;
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-}
+  /* Tarif block */
+  .tarif-block {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: var(--c-card); border: 0.5px solid var(--c-border);
+    border-radius: 10px; padding: 1rem 1.25rem; max-width: 380px; margin-bottom: 2rem;
+  }
+  .tarif-block label { margin-bottom: 0; white-space: nowrap; }
+  .tarif-block input[type="number"] { width: 110px; padding: 6px 10px; font-size: 13px; }
 
-/* Style du textarea */
-textarea {
-    min-height: 120px;
-    resize: vertical;
-}
+  /* Boutons inline */
+  .btn-small {
+    font-size: 11px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+    background: var(--c-accent); color: #fff; border: none;
+    padding: 5px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap;
+  }
+  .btn-small:hover { opacity: 0.8; }
 
-/* Placeholder */
-input::placeholder,
-textarea::placeholder {
-    color: #999;
-    font-style: italic;
-}
+  /* Montant inline */
+  .montant-form { display: flex; align-items: center; gap: 6px; }
+  .montant-form input[type="number"] { width: 90px; padding: 5px 8px; font-size: 13px; }
 </style>
 
 <h2><?= esc($titre) ?></h2>
 <br>
 
+<!-- ═══════════════════════════════════════════
+     BLOC 1 — Modifier le tarif journalier
+════════════════════════════════════════════ -->
+<h3>Tarif journalier</h3>
+<form method="post" action="<?= base_url('devis/modifier_tarif') ?>">
+  <div class="tarif-block">
+    <label>Tarif / jour (€) :</label>
+    <input type="number" name="tarif_journalier"
+           value="<?= esc($tarif_journalier) ?>" min="1" required>
+    <button class="btn-small" type="submit">Enregistrer</button>
+  </div>
+</form>
+
+<hr>
+
+<!-- ═══════════════════════════════════════════
+     BLOC 2 — Tableau de tous les devis
+════════════════════════════════════════════ -->
+<h3>Tous les devis</h3>
+
 <?php if (empty($dev)) : ?>
-    <p>Aucun devis trouvé.</p>
+  <p>Aucun devis trouvé.</p>
 <?php else : ?>
   <table>
     <thead>
@@ -93,6 +96,8 @@ textarea::placeholder {
         <th>Statut</th>
         <th>Date création</th>
         <th>Date validation</th>
+        <th>Pseudo</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -100,14 +105,19 @@ textarea::placeholder {
       <tr>
         <td><?= esc($d['det_nom']) ?></td>
         <td><?= esc($d['det_description']) ?></td>
-        <td class="amount">
-            <?php if ($d['dev_statut'] == 'V') : ?>
-                <?= esc($d['dev_montant_estime']) ?> €
-            <?php else : ?>
-                <span class="badge badge-pending">En cours d'évaluation</span>
-            <?php endif; ?>
+        <!-- Montant éditable -->
+        <td>
+          <form method="post"
+                action="<?= base_url('devis/modifier_montant/' . $d['dev_id']) ?>"
+                class="montant-form">
+            <input type="number" name="montant"
+                   value="<?= esc($d['dev_montant_estime']) ?>" min="1" required>
+            <button class="btn-small" type="submit" title="Enregistrer">✓</button>
+          </form>
         </td>
+
         <td><?= esc($d['dev_duree_estime']) ?> jours</td>
+
         <td>
           <?php if ($d['dev_statut'] == 'P') : ?>
             <span class="badge badge-pending">⏳ En attente</span>
@@ -115,41 +125,25 @@ textarea::placeholder {
             <span class="badge badge-valid">✔ Validé</span>
           <?php endif; ?>
         </td>
+
         <td><?= esc($d['dev_date_creation']) ?></td>
         <td><?= $d['dev_date_validation'] ? esc($d['dev_date_validation']) : '—' ?></td>
+        <td><?= esc($d['cpt_pseudo']) ?></td>
+
         <td>
-            <a href="<?= base_url('/devis/supprimer/' . $d['dev_id']) ?>" 
-            onclick="return confirm('Tu es sûr de vouloir supprimer ce devis ?');"
-            class="btn-delete">
-                Supprimer
+          <?php if ($d['dev_statut'] == 'P') : ?>
+            <a class="btn-valider" href="<?= base_url('devis/valider/' . $d['dev_id']) ?>">
+              Valider
             </a>
+          <?php else : ?>
+            <span class="validated-text">✔ Validé</span>
+          <?php endif; ?>
         </td>
+
       </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
 <?php endif; ?>
-
-<hr>
-
-<h3>Créer un devis</h3>
-
-<form method="post" action="<?= base_url('devis/creer') ?>">
-    <label>Nom de site :</label>
-    <input type="text" name="det_nom" placeholder="Nom du site">
-    <label>Description :</label>
-    <textarea name="det_description" placeholder="Description"></textarea>
-    <label>Nombre de pages :</label>
-    <input type="number" name="nb_pages" required>
-    <br><br>
-
-    <label>Paiement en ligne :</label>
-    <select name="paiement_ligne">
-        <option value="oui">Oui</option>
-        <option value="non">Non</option>
-    </select>
-    <br><br>
-    <button class="btn-submit" type="submit">Créer le devis</button>
-</form>
 
 <hr>

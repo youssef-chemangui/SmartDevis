@@ -42,4 +42,6 @@ $routes->post('message/repondre/(:num)', [Message::class, 'repondre']);
 $routes->get('devis/lister_dev', [Devis::class, 'lister_dev']);
 $routes->post('devis/creer', [Devis::class, 'creer']);
 $routes->get('devis/valider/(:num)', [Devis::class, 'valider']);
-
+$routes->post('devis/modifier_tarif',      'Devis::modifier_tarif');
+$routes->post('devis/modifier_montant/(:num)', 'Devis::modifier_montant/$1');
+$routes->get('devis/supprimer/(:num)', 'Devis::supprimer/$1');

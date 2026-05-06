@@ -166,7 +166,7 @@ class Db_model extends Model
         return $resultat->getResultArray();
     }
 
-        public function get_profils_num()
+    public function get_profils_num()
     {
             $requete2 = "SELECT COUNT(*) AS total_profil FROM t_profil_pfl;";
                         
@@ -200,7 +200,9 @@ class Db_model extends Model
 
     public function get_all_dev()
     {
-        $sql = "SELECT * FROM t_devis_dev";
+        $sql = "SELECT * FROM t_devis_dev      
+                JOIN t_detail_det USING (dev_id)
+                JOIN t_compte_cpt USING (cpt_pseudo)";
         return $this->db->query($sql)->getResultArray();
     }
 
@@ -210,6 +212,8 @@ class Db_model extends Model
 
         $sql = "SELECT * 
                 FROM t_devis_dev
+                JOIN t_detail_det USING (dev_id)
+                JOIN t_compte_cpt USING (cpt_pseudo)
                 WHERE cpt_pseudo = '".$pseudo."'";
 
         return $this->db->query($sql)->getResultArray();
@@ -262,10 +266,8 @@ class Db_model extends Model
     public function delete_compte($pseudo)
     {
         $pseudo = addslashes($pseudo);
-
         $sql = "DELETE FROM t_compte_cpt
                 WHERE cpt_pseudo = '".$pseudo."'";
-
         return $this->db->query($sql);
     }
 
