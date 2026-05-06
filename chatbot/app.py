@@ -46,7 +46,7 @@ Règles de conversation :
 
 DEVIS_READY:{"nom_site":"...","description":"...","nb_pages":5,"paiement":"oui"}
 
-Commence toujours par te présenter brièvement et demander le nom/type du site.
+NE te présente JAMAIS. Va directement à la question suivante sans introduction.
 Réponds toujours en français. Sois concis."""
 
 

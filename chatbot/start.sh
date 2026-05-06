@@ -6,6 +6,11 @@
 # ============================================
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Charger le .env
+if [ -f "$SCRIPT_DIR/.env" ]; then
+  export $(grep -v "^#" "$SCRIPT_DIR/.env" | xargs)
+fi
 DB_HOST="${DB_HOST:-$(ip route | grep default | awk '{print $3}')}"
 DB_USER="${DB_USER:-root}"
 DB_PASSWORD="${DB_PASSWORD:-}"
