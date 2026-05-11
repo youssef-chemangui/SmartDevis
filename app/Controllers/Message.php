@@ -155,21 +155,22 @@ class Message extends BaseController
     public function repondre($msg_id)
     {
         $session = session();
+
         if (! $session->has('user')) {
             return redirect()->to('/connexion');
         }
 
         $pseudo = $session->get('user');
-        $model = model(Db_model::class);
+
+        $model = model(\App\Models\Db_model::class);
 
         $user = $model->get_id_by_pseudo($pseudo);
+
         $cpt_pseudo = $user['cpt_pseudo'];
 
         $response = $this->request->getPost('msg_response');
 
-        $model = model(Db_model::class);
         $model->update_message($msg_id, $response, $cpt_pseudo);
-
 
         return redirect()->to('/message/afficher');
     }

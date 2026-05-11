@@ -1,15 +1,8 @@
 <?php
-/**
- * Widget chatbot flottant - SmartDevis
- * À inclure dans affichage_dev.php juste avant </body>
- *
- * Prérequis : $pseudo doit être disponible dans la vue (passé par le controller)
- */
 
 $pseudo_js = esc(session()->get('user') ?? '');
 ?>
 
-<!-- ═══════════════ CHATBOT WIDGET ═══════════════ -->
 <style>
   /* Bouton flottant */
   #chat-fab {
@@ -204,4 +197,3 @@ $pseudo_js = esc(session()->get('user') ?? '');
   }
 })();
 </script>
-<!-- ═══════════════ FIN CHATBOT ═══════════════ -->

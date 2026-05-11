@@ -36,13 +36,18 @@ class Db_model extends Model
 
     public function set_message($saisie)
     {      
-        $email   = htmlspecialchars(addslashes($saisie['email']));
-        $objet   = htmlspecialchars(addslashes($saisie['objet']));
-        $contenu = htmlspecialchars(addslashes($saisie['contenu']));
+        $email   = $saisie['email'];
+        $objet   = $saisie['objet'];
+        $contenu = $saisie['contenu'];
+
         $code = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 20);
-        $sql = "INSERT INTO t_message_msg (msg_email, msg_objet, msg_contenu, msg_date, msg_code, msg_response, cpt_pseudo) 
-                VALUES ('$email', '$objet', '$contenu', CURDATE(), '$code', 'Demande en cours de traitement', NULL)";
-        $this->db->query($sql);
+
+        $sql = "INSERT INTO t_message_msg 
+                (msg_email, msg_objet, msg_contenu, msg_date, msg_code, msg_response, cpt_pseudo) 
+                VALUES (?, ?, ?, CURDATE(), ?, 'Demande en cours de traitement', NULL)";
+
+        $this->db->query($sql, [$email, $objet, $contenu, $code]);
+
         return $code;
     }
 
@@ -177,14 +182,15 @@ class Db_model extends Model
 
     public function update_message($msg_id, $response, $cpt_pseudo)
     {
-        $response = addslashes(htmlspecialchars($response));
-
         $sql = "UPDATE t_message_msg
-                SET msg_response = '".$response."', 
-                    cpt_pseudo = '".$cpt_pseudo."'
-                WHERE msg_id = ".$msg_id;
+                SET msg_response = ?, cpt_pseudo = ?
+                WHERE msg_id = ?";
 
-        return $this->db->query($sql);
+        return $this->db->query($sql, [
+            $response,
+            $cpt_pseudo,
+            $msg_id
+        ]);
     }
 
     public function get_all_msg()
